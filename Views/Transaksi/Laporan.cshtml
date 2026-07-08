@@ -1,0 +1,72 @@
+@model IEnumerable<TokoBusanaAlex.Models.Transaksi>
+@{
+    ViewData["Title"] = "Laporan Realtime";
+}
+
+<div class="container mt-5" id="printArea">
+    <div class="text-center mb-5 border-bottom pb-4">
+        <h1 class="fw-bold text-dark mb-1">LAPORAN PENJUALAN RESMI</h1>
+        <h4 class="text-secondary fw-semibold">Toko Busana Alex Sejahtera</h4>
+        <p class="text-muted small mb-0">Jl. Raya Busana No. 123 | Sistem Informasi Keuangan Realtime</p>
+    </div>
+
+    <div class="d-flex justify-content-between mb-4 no-print">
+        <a asp-action="Index" class="btn btn-light fw-semibold px-4 rounded-pill border">
+            ⬅️ Kembali ke Menu Kasir
+        </a>
+        <button onclick="window.print()" class="btn btn-dark fw-bold px-4 rounded-pill shadow-sm">
+            🖨️ Cetak Laporan (PDF / Kertas)
+        </button>
+    </div>
+
+    <div class="card border-0 shadow-sm rounded-4 p-3 mb-5">
+        <div class="table-responsive">
+            <table class="table table-striped align-middle mb-0">
+                <thead class="table-dark text-uppercase fs-7">
+                    <tr>
+                        <th class="ps-3 py-3">No Transaksi</th>
+                        <th>Waktu / Tanggal</th>
+                        <th>Nama Busana</th>
+                        <th>Harga Satuan</th>
+                        <th>Qty Beli</th>
+                        <th class="pe-3 text-end">Total Bayar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if(!Model.Any()){
+                        <tr>
+                            <td colspan="6" class="text-center py-5 text-muted">Belum ada transaksi terekam hari ini.</td>
+                        </tr>
+                    } else {
+                        foreach(var item in Model){
+                            <tr>
+                                <td class="ps-3 fw-bold text-primary">TRX-00@(item.IdTransaksi)</td>
+                                <td class="text-muted small">@item.TanggalTransaksi.ToString("dd MMM yyyy - HH:mm") WIB</td>
+                                <td class="fw-bold text-dark">@item.NamaProduk</td>
+                                <td>Rp @item.Harga.ToString("N0")</td>
+                                <td><span class="badge bg-secondary rounded-pill px-3">@item.JumlahBeli Pcs</span></td>
+                                <td class="pe-3 text-end fw-bold text-success fs-6">Rp @item.TotalBayar.ToString("N0")</td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<style>
+    @@media print {
+        .no-print, .navbar, footer {
+            display: none !important;
+        }
+        body {
+            padding: 30px;
+            background-color: white !important;
+        }
+        .card {
+            border: none !important;
+            box-shadow: none !important;
+        }
+    }
+</style>

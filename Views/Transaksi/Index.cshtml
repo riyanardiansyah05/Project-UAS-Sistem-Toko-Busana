@@ -1,0 +1,41 @@
+@model TokoBusanaAlex.Models.Transaksi
+@{
+    ViewData["Title"] = "Kasir Penjualan";
+}
+
+<div class="container mt-5" style="max-width: 550px;">
+    <div class="card border-0 shadow-lg rounded-4 overflow-hidden">
+        <div class="card-header bg-gradient bg-success text-white text-center py-3.5 border-0">
+            <h4 class="mb-0 fw-bold">🛒 Smart Kasir - Toko Alex</h4>
+            <p class="mb-0 small text-white-50">Sistem Perhitungan Transaksi Otomatis</p>
+        </div>
+        <div class="card-body p-4">
+            @if (!ViewData.ModelState.IsValid)
+            {
+                <div class="alert alert-danger border-0 rounded-3 small">
+                    <div asp-validation-summary="All"></div>
+                </div>
+            }
+            <form asp-action="Bayar" method="post">
+                <div class="mb-4">
+                    <label class="form-label fw-semibold text-secondary">Pilih Busana / Pakaian</label>
+                    <select asp-for="IdProduk" class="form-select form-select-lg rounded-3 fs-6" required>
+                        <option value="">-- Cari & Pilih Baju --</option>
+                        @foreach (var p in ViewBag.ProdukList)
+                        {
+                            <option value="@p.IdProduk">@p.NamaProduk (Rp @p.Harga.ToString("N0") | Stok: @p.Stok)</option>
+                        }
+                    </select>
+                </div>
+                <div class="mb-4">
+                    <label class="form-label fw-semibold text-secondary">Jumlah Pembelian (Pcs)</label>
+                    <input asp-for="JumlahBeli" type="number" min="1" class="form-control form-control-lg rounded-3 fs-3 fw-bold text-center text-success" required value="1" />
+                </div>
+                <hr class="text-muted my-4" />
+                <button type="submit" class="btn btn-success btn-lg w-100 rounded-3 fw-bold fs-6 shadow">
+                    ⚡ Proses & Hitung Pembayaran
+                </button>
+            </form>
+        </div>
+    </div>
+</div>

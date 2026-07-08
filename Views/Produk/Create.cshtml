@@ -1,0 +1,44 @@
+@model TokoBusanaAlex.Models.Produk
+
+@{
+    ViewData["Title"] = "Tambah Produk Baru";
+}
+
+<div class="container mt-5" style="max-width: 550px;">
+    <div class="card border-0 shadow-lg rounded-4 overflow-hidden">
+        <div class="card-header bg-gradient bg-primary text-white text-center py-3.5 border-0">
+            <h4 class="mb-0 fw-bold">✨ Tambah Busana Baru</h4>
+            <p class="mb-0 small text-white-50">Masukkan detail informasi baju ke database</p>
+        </div>
+        <div class="card-body p-4">
+            <form asp-action="Create" method="post">
+                <div class="mb-3">
+                    <label class="form-label fw-semibold text-secondary">Nama Produk / Busana</label>
+                    <input asp-for="NamaProduk" class="form-control form-control-lg rounded-3 fs-6" required placeholder="Contoh: Kemeja Batik Premium" />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label fw-semibold text-secondary">Kategori Pakaian</label>
+                    <input asp-for="Kategori" class="form-control form-control-lg rounded-3 fs-6" required placeholder="Contoh: Atasan / Dress / Celana" />
+                </div>
+                <div class="row">
+                    <div class="col-md-7 mb-3">
+                        <label class="form-label fw-semibold text-secondary">Harga Jual (Rp)</label>
+                        <div class="input-group input-group-lg">
+                            <span class="input-group-text bg-light fs-6">Rp</span>
+                            <input asp-for="Harga" type="number" class="form-control rounded-end-3 fs-6" required placeholder="150000" />
+                        </div>
+                    </div>
+                    <div class="col-md-5 mb-3">
+                        <label class="form-label fw-semibold text-secondary">Stok Awal</label>
+                        <input asp-for="Stok" type="number" class="form-control form-control-lg rounded-3 fs-6" required placeholder="50" />
+                    </div>
+                </div>
+                <hr class="text-muted my-4" />
+                <div class="d-grid gap-2">
+                    <button type="submit" class="btn btn-primary btn-lg rounded-3 fw-bold fs-6 shadow-sm">💾 Simpan ke Database</button>
+                    <a asp-action="Index" class="btn btn-light btn-lg rounded-3 fw-semibold fs-6 text-secondary">Kembali</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
